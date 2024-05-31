@@ -13,7 +13,6 @@
       }
     },
     "start": {
-      "command": "venv\\Scripts\\activate.bat && python manage.py runserver 0.0.0.0:%PORT%"
+      "command": "venv\\Scripts\\activate.bat && gunicorn bicot.wsgi -b 0.0.0.0:%PORT%"
     }
-  }
-  
+}
