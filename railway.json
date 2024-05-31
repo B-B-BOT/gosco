@@ -1,4 +1,8 @@
 {
-    "build": "python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt",
-    "start": "python manage.py runserver 0.0.0.0:$PORT"
+    "build": {
+      "command": "python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt"
+    },
+    "start": {
+      "command": "python manage.py runserver 0.0.0.0:$PORT"
+    }
 }
