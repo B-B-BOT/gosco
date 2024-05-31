@@ -1,12 +1,19 @@
 {
     "build": {
-      "base": "python:3.12",
+      "builder": "python:3.12",
       "phases": {
-        "install": "pip install -r requirements.txt && python manage.py migrate"
+        "install": {
+          "commands": [
+            "python -m venv venv",
+            "venv\\Scripts\\activate.bat",
+            "pip install -r requirements.txt",
+            "python manage.py migrate"
+          ]
+        }
       }
     },
     "start": {
-      "command": "python manage.py runserver 0.0.0.0:$PORT"
+      "command": "venv\\Scripts\\activate.bat && python manage.py runserver 0.0.0.0:%PORT%"
     }
   }
   
