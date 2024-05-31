@@ -1,18 +1,20 @@
 {
-    "build": {
-      "builder": "python:3.12",
-      "phases": {
-        "install": {
-          "commands": [
-            "python -m venv venv",
-            "venv\\Scripts\\activate.bat",
-            "pip install -r requirements.txt",
-            "python manage.py migrate"
-          ]
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "nixpacksPlan": {
+        "providers": ["python"],
+        "phases": {
+            "setup": {
+                "nixPkgs": ["...", "nodejs"]
+            }
         }
-      }
     },
-    "start": {
-      "command": "venv\\Scripts\\activate.bat && gunicorn bicot.wsgi -b 0.0.0.0:%PORT%"
-    }
+    "buildCommand": "npm ci"
+  },
+  "deploy": {
+    "startCommand": "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn webapp.wsgi",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
 }
